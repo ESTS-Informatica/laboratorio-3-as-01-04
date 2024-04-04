@@ -37,4 +37,41 @@ public class ShippingCompany extends HashSet<Transport> {
 
         return sb.toString();
     }
+
+
+    private Transport getTransportation(String id) {
+        for (Transport transport : this) {
+            if(transport.getId().equals(id))
+                return transport;
+        }
+        return null;
+    }
+
+
+    public void makeTransportation(String id, String origin, String destination, double price) {
+        Transport transport = getTransportation(id);
+        if(transport != null) {
+            if(transport.isAvailable()) {
+                transport.setAvailable(false);
+                transport.setPrice(price);
+                transport.setDestination(destination);
+                transport.setOrigin(origin);
+                inService.add(transport);
+                this.remove(transport);
+            }
+        }
+    }
+
+
+    public void finalizeTransportation(String id) {
+        Transport transport = getTransportation(id);
+        if(transport!= null) {
+            inService.remove(transport);
+            transport.setAvailable(true);
+            transport.setPrice(0.0);
+            transport.setDestination("");
+            transport.setOrigin("");
+            this.add(transport);
+        }
+    }
 }
