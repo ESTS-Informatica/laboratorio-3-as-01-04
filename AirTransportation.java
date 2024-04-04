@@ -23,6 +23,28 @@ public class AirTransportation extends Transport{
     }
 
     public void setNumberOfContainers(int numberOfContainers) {
-        this.numberOfContainers = numberOfContainers;
+        if(numberOfContainers >= 0)
+            this.numberOfContainers = numberOfContainers;
+    }
+
+
+    @Override
+    public double getPriceWithFees() {
+        return super.getPriceWithFees();
+    }
+
+    @Override
+    public String getTransportType() {
+        return "Transporte Aereo";
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder(super.toString());
+
+        sb.append(String.format("%15s: %s\n", "Nome", getName()));
+        sb.append(String.format("%15s: %d\n", "NºContentores", getNumberOfContainers()));
+
+        return sb.toString();
     }
 }
